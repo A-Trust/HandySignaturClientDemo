@@ -27,8 +27,18 @@ namespace HandySignaturClientDemo
             InitializeComponent();
             SetBrowserFeatureControl();
 
+            webBrowser1.NewWindow += WebBrowser1_NewWindow;
+            webBrowser1.ScriptErrorsSuppressed = true;
+
             m_HandySignaturUrl = ConfigurationManager.AppSettings["HandySignaturUrl"];
             comboBox1.SelectedIndex = 0;
+        }
+
+        private void WebBrowser1_NewWindow(object sender, CancelEventArgs e)
+        {
+
+
+            return;
         }
 
         #region SetBrowserFeatureControl
@@ -42,6 +52,11 @@ namespace HandySignaturClientDemo
                 return;
 
             SetBrowserFeatureControlKey("FEATURE_BROWSER_EMULATION", fileName, GetBrowserEmulationMode()); // Webpages containing standards-based !DOCTYPE directives are displayed in IE10 Standards mode.
+            SetBrowserFeatureControlKey("FEATURE_DISABLE_NAVIGATION_SOUNDS", fileName, 1);
+            SetBrowserFeatureControlKey("FEATURE_SCRIPTURL_MITIGATION", fileName, 1); //By default, this feature (the mitigation) is enabled for Internet Explorer and disabled for applications hosting the WebBrowser Control. (https://msdn.microsoft.com/en-us/ie/ee330735(v=vs.94))
+            SetBrowserFeatureControlKey("FEATURE_WEBOC_POPUPMANAGEMENT", fileName, 1); // Enable applications hosting the WebBrowser Control to receive the default Internet Explorer pop-up management behavior. (https://msdn.microsoft.com/en-us/ie/ms537169(v=vs.94))
+            SetBrowserFeatureControlKey("FEATURE_WINDOW_RESTRICTIONS ", fileName, 0);
+            SetBrowserFeatureControlKey("FEATURE_RESTRICT_ACTIVEXINSTALL", fileName, 1);  // Block ActiveX controls ...
         }
 
         void SetBrowserFeatureControlKey(string feature, string appName, uint value)
