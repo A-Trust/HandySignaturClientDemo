@@ -1,4 +1,3 @@
 # Handy-Signatur Cient Demo 
 
-C# Applikation welche die Verwendung der Handy-Signatur in einer Client-Applikation demonstriert.   
-
+C# application demonstrating the use of Handy-Signatur in a client application.
